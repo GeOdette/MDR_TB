@@ -1,0 +1,67 @@
+install.packages("gtsummary")
+library('tidyverse')
+library('gtsummary')
+instll_pkgs <- 
+  c("labelled", "usethis", 
+    "causaldata", "fs", "skimr", "emmeans")
+install.packages(instll_pkgs)
+library('labelled')
+
+df_nhefs <-
+  causaldata::nhefs %>%
+  select(death, qsmk, age, sex, sbp, dbp, exercise) %>%
+  drop_na() %>%
+  mutate(
+    qsmk =
+      factor(
+        qsmk,
+        levels = 0:1,
+        labels = c("Did not Quit", "Quit")
+      ),
+    sex = 
+      case_when(
+        sex == 0 ~ "Male",
+        sex == 1 ~ "Female"
+      ),
+    exercise = 
+      factor(
+        exercise,
+        levels = 0:2,
+        labels = c("Much exercise", "Moderate exercise", "Little or no exercise")
+      ) %>%
+      fct_rev()
+  ) %>%
+  labelled::set_variable_labels(
+    death = "Participant Passes Away",
+    qsmk = "Quit smoking",
+    age = "Age",
+    sex = "Sex",
+    sbp = "Systolic BP",
+    dbp = "Diastolic BP",
+    exercise = "EXercise Level"
+    
+    
+  )
+skimr::skim(df_nhefs)
+
+sm_trial <- trial |> select(trt, age, grade, response)
+sm_trial |> select(-trt) |> tbl_summary()
+tbl_summary(sm_trial, by = trt, type = age ~ 'continuous2', 
+            statistic = list(
+              age ~ c("{mean} ({sd})",
+                      "{min}, {max}"),
+              response ~ "{n} / {N} ({p}%)"
+            ),
+            label = 
+              grade ~ "Pathologic tumor grade") |> 
+  add_p() |>
+  add_q(method = 'fdr')
+
+df_nhefs |> select(-death) |> tbl_summary(by = qsmk) |>
+  add_p()
+trial |> select(trt, marker, response) |> 
+  tbl_summary(by = trt,
+              statistic = list(marker ~ "{mean} ({sd})",
+                               response ~ "{p}%"),
+              missing = "no") |>
+  add_difference()

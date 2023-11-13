@@ -1,0 +1,276 @@
+---
+title: "EPIDEMIOLOGY OF MULTI-DRUG RESISTANT TB USING ISOLATES SENT TO THE NATIONAL TUBERCULOSIS REFERENCE LABORARY (2015-2016)"
+format:
+  pdf:
+    documentclass: report
+    keep-tex: true
+---
+
+# METHODS
+
+```{R}
+library('ggflowchart')
+flow_chart <- tibble::tibble(from = c("Total TB+ Entries recieved 
+  8308", "Total TB+ Entries recieved 
+  8308", "Entries after removing null values
+  2621", "Entries after removing null values
+  2621", "Null entries removed
+  2621"),
+                             to= c("Entries after removing null values
+  2621","Entries removed 
+  5682", "Entries after removing Non-MDR
+  143
+  ", "Null entries removed
+  2621", "MDR entries analyzed
+  143"))
+ggflowchart(flow_chart, colour = 'cyan', family = 'serif', x_nudge = 0.45)
+
+```
+
+## R Packages used
+
+```{r}
+#\ label: load-packages
+suppressPackageStartupMessages(library('tidyverse'))
+
+#install.packages('plotly')
+
+#install.packages('ggmap')
+
+#install.packages('forcats')
+suppressPackageStartupMessages(library('ggmap'))
+suppressPackageStartupMessages(library('plotly'))
+suppressPackageStartupMessages(library('ggdist'))
+suppressPackageStartupMessages(library('ggmap'))
+
+```
+
+# FUNCTIONS
+
+## Fisher's function
+
+```{r}
+Fishersfn <- function(df, var1, var2){
+
+  contingency_table <- table(df[[var1]], df[[var2]])
+
+  fisherExact <- fisher.test(contingency_table)
+
+  return (fisherExact)
+
+}
+```
+
+## Getting percentages
+
+```{r}
+pcts <- function(df, var_to_group_by) {
+
+  results <- df %>%
+
+    group_by_at(vars({{ var_to_group_by }})) %>%
+
+    summarise(counts = n()) %>%
+
+    mutate(Percentages = counts/sum(counts)*100)
+
+  
+
+  return(results)
+
+}
+```
+
+Reading the file
+
+```{r}
+mdr_tb_df <- read.csv('mdr_tbv4.csv')
+
+```
+
+Creating a new column to define MDR_TYPE
+
+```{r}
+mdr_tb_df$MDR_TYPE <- NA
+```
+
+Here I have defined Rpob + katg as MDRKR (MDR KatG and RpoB), as well as those that are rpob + katg + inha
+
+```{r}
+mdr_tb_dfv1 <- mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG == 'Resistant'] <- 'MDRKR'
+
+mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG != 'Resistant' & mdr_tb_df$inhA == 'Resistant'] <- 'MDRIR'
+
+mdr_tb_dfv1 <- mdr_tb_df %>% select(-RpoB, -KatG, -inhA)
+```
+
+# VISUALIZATIONS
+
+Setting theme
+
+```{r}
+theme_set(theme_gray())
+
+theme_update(
+
+  plot.margin = margin(rep(20, 4))
+
+)
+
+```
+
+## HIV BAR PLOT
+
+```{r}
+hivbar <- ggplot(mdr_tb_dfv1, mapping = aes(x=HIV_STATUS)) + geom_bar(mapping = aes(fill = HIV_STATUS)) + ggtitle('HIV status and multidrug resistance in 2015-2016 samples from NTRL')
+hivbar
+```
+
+## TB TYPE BAR PLOT
+
+```{r}
+tb_type_bar <- ggplot(mdr_tb_dfv1, mapping = aes(x=TB_TYPE)) + geom_bar(mapping = aes(fill = TB_TYPE)) + ggtitle('TB Type and multidrug resistance
+                                                                                                                 in 2015-2016 samples from NTRL')
+```
+
+## SMEAR BAR PLOT
+
+```{r}
+smearBar <- ggplot(mdr_tb_dfv1, mapping = aes(x=SMEAR)) + geom_bar(mapping = aes(fill = SMEAR)) + ggtitle('Smear results and multidrug resistance in 2015-2016 samples from NTRL')
+smearBar 
+```
+
+Age groups based on WHO typical age divisions
+
+```{r}
+mdr_tb_dfv3 <- mdr_tb_dfv1 %>%   mutate(
+  # Create categories
+  age_group = dplyr::case_when(
+    AGE <= 4            ~ "0-4",
+    AGE > 4 & AGE <= 14 ~ "5-14",
+    AGE > 14 & AGE<= 24 ~ "15-24",
+    AGE > 24 & AGE <= 34  ~ "25-34",
+    AGE > 34 & AGE <= 44 ~ "35-44",
+    AGE > 44 & AGE <= 54 ~ "45-54",
+    AGE > 54 & AGE <= 64 ~ "65+",
+    AGE >= 64 ~ "35-44"
+  ),
+  # Convert to factor
+  age_group = factor(
+    age_group,
+    level = c("0-4", "5-14","15-24","25-34","35-44","45-54", "65+")
+  )
+)
+```
+
+## LOLLIPOP PLOT FOR COUNTY/GEOGRAPHICAL DISTRIBUTION
+
+```{r}
+geoGrpsPcts <- pcts(mdr_tb_dfv1, 'Province')
+
+GeoPops <- geoGrpsPcts %>%
+
+  arrange(desc(Percentages)) %>% 
+
+  mutate( Province = forcats::fct_reorder(Province, Percentages)) %>%
+
+  ggplot(aes(x=Province, y=Percentages)) +
+
+  geom_point(color = 'orange') +
+
+  geom_segment(aes(x=Province, y=Percentages, xend=Province, yend=0, color = 'red')) +
+
+  theme(axis.text.x = element_text(angle = 90), panel.background = element_rect(fill = 'lightblue'), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), plot.title = element_text(color='#6699CC', size = 10, face = 'bold')) +
+
+  labs(title = 'MDR TB: Percentage of MDR TB cases by region/county reported to the NTRL', y= 'Percentage (%) per county', x='County') +
+
+  guides(color = 'none')
+GeoPops 
+```
+
+## AGE GROUP BAR PLOT
+
+```{r}
+age_groupBars <- mdr_tb_dfv3 %>%
+
+  group_by(age_group) %>%
+
+  summarise(counts = n())
+
+ggplot() +
+
+  geom_bar(data = age_groupBars, aes(x = age_group, y = counts, fill = age_group), stat = "identity") +
+
+  labs(title = 'Age distribution of MDR isolates subitted to the NTRL between 2015-2015')
+age_groupBars
+```
+
+# **INFERENTIAL STATISTICS**
+
+## Fishers exact test for HIV status
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv3, 'HIV_STATUS', 'MDR_TYPE')
+p_value 
+```
+
+## Fisher's exact test for age
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv3, 'age_group', 'MDR_TYPE')
+p_value 
+```
+
+## Fisher's exact test for COUNTY
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv1, 'Province', 'MDR_TYPE')
+p_value
+```
+
+## Fisher's exact test for TB type
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv1, 'TB_TYPE', 'MDR_TYPE')
+p_value
+```
+
+## Fisher's exact test for GENDER
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv1, 'GENDER', 'MDR_TYPE')
+p_value
+```
+
+## Fisher's exact test for SMEARS
+
+```{r}
+p_value <- Fishersfn(mdr_tb_dfv1, 'SMEAR', 'MDR_TYPE')
+p_value
+```
+
+# More characterizations
+
+```{r}
+mdr_tb_dfv5 <- mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG == 'Resistant' & mdr_tb_df$inhA == 'Resistant'] <- 'MDR+'
+```
+
+# Percentages of the MDR types
+
+```{r}
+pcts(mdr_tb_df, 'MDR_TYPE')
+```
+
+TABLES OF DEMOGRAPHIC DISTRIBUTION OF MDR TYPES
+
+```{r}
+table(mdr_tb_df$Province, mdr_tb_df$MDR_TYPE)
+
+table(mdr_tb_df$HIV_STATUS, mdr_tb_df$MDR_TYPE)
+
+table(mdr_tb_df$SMEAR, mdr_tb_df$MDR_TYPE)
+
+table(mdr_tb_df$TB_TYPE, mdr_tb_df$MDR_TYPE)
+
+
+```

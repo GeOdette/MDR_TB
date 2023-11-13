@@ -1,0 +1,157 @@
+---
+title: "Molecular Characterization of Multidrug-Resistant Tuberculosis Isolates from the National TB Reference Laboratory in Kenya by Whole Genome Sequencing"
+author: Steve George Odette
+format: revealjs
+editor: visual
+slide-number: c/t
+height: 900
+width: 1600
+---
+
+## Background of information
+
+-   Tuberculosis (TB) is a deadly infectious disease, claiming over 1.6 million lives annually (WHO, 2022)
+
+-   Multidrug-resistant TB (MDR-TB) poses a significant challenge globally, being resistant to key anti-TB drugs[^1] (WHO, 2022)
+
+[^1]: Isoniazid and Rifampicin
+
+<!-- -->
+
+-   Global MDR-TB cases increased by 3.2% to 450,000 in 2022 (WHO, 2022; Salari et al., 2023)
+
+-   East Africa has an MDR-TB estimate of 4% among newly diagnosed and 21% among previously treated individuals (Molla et al., 2022)
+
+-   Kenya, a high-TB burden country, had an estimated 5% MDR-TB prevalence in 2018 (Kerubo et al., 2022)
+
+## Background of information cont.
+
+-   MDR-TB imposes significant economic burdens, costing more to manage and affecting productivity[^2] (Ministry of Health Kenya, 2017; Kairu et al., 2021; Silva et al., 2021)
+
+-   Kenya lacks comprehensive epidemiological data on MDR-TB, especially from the National TB reference laboratory (NTRL) (Gichuki & Mategula, 2021)
+
+-   Molecular diagnostic tests like Xpert MTB/RIF® and LPA have increased MDR-TB detection accuracy (Aricha et al., 2019)
+
+-   However, since 2015, Kenya lacked MDR-TB surveillance using NTRL data
+
+[^2]: Ksh. 145,109.53 compared to Ksh. 25,874.00 for drug-susceptible TB in 2017 (Ministry of Health Kenya., 2017)
+
+## Background of information cont.
+
+-   This study aims to comprehensively examine the epidemiology of MDR-TB in Kenya from 2015-2016, filling gaps in existing knowledge
+
+-   A retrospective cross-sectional study will analyze epidemiological and molecular data from the NTRL to identify trends and patterns of drug resistance
+
+-   The findings will aid targeted interventions like contact tracing and infection control measures based on transmission dynamics identified through genomic analysis
+
+## Research questions
+
+What is the molecular epidemiology of multi-drug resistant tuberculosis based on isolates receieved at the NTRL:
+
+::: incremental
+::: {.fragment .highlight-red}
+-   What is the prevalence and phenotypic profiles of MDR isolates at NTRL?
+:::
+
+-   What are the gene mutations conferring MDR in isolates at the NTRL?
+
+-   Which gene mutations co-exist to confer MDR in isolates at the NTRL?
+
+-   What is the genetic diversity of MDR isolates at the NTRL?
+:::
+
+## Objectives
+
+**General objective**
+
+To characterize multidrug-resistant (MDR) tuberculosis (TB) isolates from the National TB Reference Laboratory using whole-genome sequencing
+
+## Objectives
+
+**General objective**
+
+To characterize multidrug-resistant (MDR) tuberculosis (TB) isolates from the National TB Reference Laboratory using whole-genome sequencing
+
+Specific objectives
+
+::: incremental
+::: {.fragment .highlight-red}
+-   To determine the prevalence and phenotypic profiles of multi-drug-resistant *Mycobacterium tuberculosis* among TB samples from the NTRL
+:::
+
+-   To determine the mutations conferring drug resistance within drug target genes of the sequenced MDR isolates, their frequency, and distribution
+
+-   To determine the genetic diversity of MDR TB isolates from NTRL by Whole Genome Sequencing
+
+-   To evaluate co-existent gene mutations, their frequency, and distribution of isolates at the NTRL
+:::
+
+## Workflow
+
+OK
+
+## Methods
+
+-   Retrospective cross-sectional study investigating MDR-TB epidemiology using NTRL samples in Nairobi
+
+-   NTRL: Central repository for TB data, collecting nationwide information
+
+-   Data from 2015-2016, including all confirmed pulmonary TB cases entered into LIMS, were eligible
+
+-   Table 1: Laboratory procedures for diagnosing drug-resistant TB at NTRL in 2015
+
+-   Table 2: Variables available for 2015-2016 data, with 8308 entries analyzed
+
+## Methods cont.
+
+Data Analysis - pDST Arm
+
+-   Initial analysis using pDST data, dropping nulls to proceed with 1271 entries
+
+-   76 entries fit MDR definition and included in downstream analysis
+
+## Methods cont.
+
+Data Analysis - Analysis and Regression Model
+
+-   LPA data analysis: After removing nulls, 2621 entries remained
+
+-   Only verified MDR entries with full demographic data were included, resulting in 143 MDR cases
+
+-   R and R packages used for data analysis and visualizations
+
+-   Prevalence of MDR calculated by dividing MDR entries by total entries
+
+-   Statistical tests (Fisher's Exact Test, Wilcoxon rank sum test) with q-value correction used where applicable
+
+-   Logistic regression model with gender and type of TB patient as variables
+
+## RESULTS
+
+Demographic Summary
+
+-   Our study analyzed 1271 entries with pDST data (15% of 8308)
+
+-   MDR prevalence based on pDST data: 5.97% (76/1271)
+
+-   Males accounted for 62% of MDR cases, while females were 29%
+
+-   50% of MDR cases were HIV negative, 16% were HIV positive, and 22% had no HIV test
+
+-   Different TB patient categories were identified, with new TB patients and those on retreatment being the highest percentages
+
+# Results: Age distribution
+
+-   The mean age of the study population was 33 years
+
+-   Ages ranged between 0 and 62 years
+
+-   As depicted in Figure 2, fewer MDR-TB cases were observed among those aged between 55-64[^3]
+
+-   Similarly, the age groups of 0-4 and 5-14 exhibited lower prevalence rates[^4]
+
+[^3]: Comprising 5.3% (4/76; 95% CI 1.7%, 14%)
+
+[^4]: 3.9% (3/76; 95% CI 1.0%, 12%) and 2.6% (2/76; 95% CI 0.46%, 10%) respectively
+
+# Results: Predictors of MDR

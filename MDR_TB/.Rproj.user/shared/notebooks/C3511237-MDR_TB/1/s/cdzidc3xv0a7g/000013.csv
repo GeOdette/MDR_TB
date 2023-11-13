@@ -1,0 +1,6 @@
+"0","mdr_tb_dfv1 <- mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG == 'Resistant'] <- 'MDRKR'"
+"0",""
+"0","mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG != 'Resistant' & mdr_tb_df$inhA == 'Resistant'] <- 'MDRIR'"
+"0",""
+"0","mdr_tb_dfv1 <- mdr_tb_df %>% select(-RpoB, -KatG, -inhA)"
+"0","mdr_tb_dfv1"

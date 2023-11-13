@@ -1,0 +1,60 @@
+library('tidyverse')
+#install.packages('plotly')
+#install.packages('ggmap')
+#install.packages('forcats')
+library(ggmap)
+library(plotly)
+library('ggdist')
+library('gtsummary')
+library('readxl')
+library(forcats)
+library(ggmap)
+theme_gtsummary_compact()
+
+#-----------------------------FUNCTIONS-----------------------------------------
+# Fisher's functon
+Fishersfn <- function(df, var1, var2){
+  contingency_table <- table(df[[var1]], df[[var2]])
+  fisherExact <- fisher.test(contingency_table, simulate.p.value = TRUE)
+  return (fisherExact)
+}
+# Getting percentages
+pcts <- function(df, var_to_group_by) {
+  results <- df %>%
+    group_by_at(vars({{ var_to_group_by }})) %>%
+    summarise(counts = n()) %>%
+    mutate(Percentages = counts/sum(counts)*100)
+  
+  return(results)
+}
+
+ageCats <- function(df) {
+  df$age_group <- dplyr::case_when(
+    df$AGE <= 4            ~ "0-4",
+    df$AGE > 4 & df$AGE <= 14 ~ "5-14",
+    df$AGE > 14 & df$AGE <= 24 ~ "15-24",
+    df$AGE > 24 & df$AGE <= 34 ~ "25-34",
+    df$AGE > 34 & df$AGE <= 44 ~ "35-44",
+    df$AGE > 44 & df$AGE <= 54 ~ "45-54",
+    df$AGE > 54 & df$AGE < 65 ~ "55-64",
+    df$AGE >= 65            ~ "65+"
+  )
+  
+  df$age_group <- factor(df$age_group, levels = c("0-4", "5-14", "15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
+  
+  return(df)
+}
+plain_theme <- theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white"),  # Set the background color to white
+    panel.grid.major = element_blank(),  # Remove major grid lines
+    panel.grid.minor = element_blank()   # Remove minor grid lines
+  )
+
+bar_plots <- function(df, geo_name) {
+  plot <- ggplot(df, aes(x = {{geo_name}}, fill = {{geo_name}})) +
+    geom_bar(position = position_dodge(width = 3.5)) +
+    plain_theme +
+    theme(axis.text.x = element_text(angle = 90))
+  return(plot)
+}

@@ -1,0 +1,250 @@
+source('SharedScripts.R')
+library("webshot2")
+mdr_tb_df <- read.csv('mdr_tbv4.csv')
+TB_DATA <- read.csv('TB_DATA.csv')
+mdrtb_orig <- read_excel('ntrl-jul2015-dec2016.xlsx')
+
+mdrtb_original <- mdrtb_orig |> 
+  select(-Template, -sample_number, -SAMPLE_STATUS, -SAMPLED_DATE, -LOGIN_DATE, 
+         -MOH_COLLECTION_DATE, -DATE_REVIEWED, -RELEASED_ON, -MGIT, 
+         -MGITLJ_COMPARE, -GENE_EXPERT_MTB, -GENE_EXPERT_RIF, -ScreenSmear, 
+         -SMEAR_DIRECT, -SMEAR_COLONY, -MTBL_ISOLATED, -TEXT_ID,
+         -DST_1ST_Method, -SmearScreen, -DST_1ST_Growth_Control, -DST_SECOND_LINE, -IdentificationTest, 
+         -First_Name, -Middle_Name, -Last_Name, -DRS_NO, 
+         -LJ1_GROWTH, -MOH_HEALTH_FACILITY, -PATIENT)
+mdrtb_original
+
+mdrtb_original$AGE <- as.numeric(mdrtb_original$AGE)
+mdrtb_original
+mdrtb_pdst <- mdrtb_original[complete.cases(mdrtb_original[, c('DST_1ST_Streptomycin')]), ]
+mdrtb_pdst1 <- mdrtb_pdst |> ageCats() |> select(-Province, -District, -Facility, -DST_1ST_GC_Pyrazinamide) |>
+  rename(Sex=X_GENDER, Patient_Type=MOH_TB_TYPE_PATIENT,STR_pDST=DST_1ST_Streptomycin,
+         Smear=SMEAR_CONCENTRA, INH_pDST=DST_1ST_Isoniazid, RIF_pSDT=DST_1ST_Rifampicin,
+         EMB_pDST=DST_1ST_Ethambutol, PRZ_pDST=DST_1ST_Pyrazinamide,
+         HIV_STATUS= MOH_HIV_STATUS, rpoB=DNA_MTBDRPLUS_rpoB,
+         KatG=DNA_MTBDRPLUS_KatG, inhA= DNA_MTBDRPLUS_inhA) |>
+  mutate(Patient_Type = fct_recode(Patient_Type, 
+                                   "Failure at initial treatment" = "FA_1STL_TR",
+                                   "Retreatment after treatment failure" = "FA_RE_TREA",
+                                   "MDR Contaminated" = "MDR_CONTA",
+                                   "MDR Follow-UP" = "MDR_F",
+                                   "New Patient" = "NEW",
+                                   "Retreatment after default" = "RE_AF_DEFA",
+                                   "Positive" = "Positive", 
+                                   "Sputum smear negative relapse" = "SP_SM_NR",
+                                   "Sputum smear positive relapse" = "SP_SM_PR" ),
+         HIV_STATUS = fct_recode(HIV_STATUS, "Not Done" = "NOT_DONE",
+                                     "Declined" = "DECLINED",
+                                    "Negative" ="NEGATIVE",
+                                    "Positive" = "POSITIVE")) |>
+  labelled::set_variable_labels(HIV_STATUS = "HIV STATUS",
+                                Patient_Type = "TB Patient Type",
+                                STR_pDST = "STR pDST",
+                                INH_pDST = "INH pDST",
+                                RIF_pSDT = "RIF pDST",
+                                EMB_pDST = "EMB pDST",
+                                PRZ_pDST = "PRZ pDST",
+                                age_group = "AGE GROUP",
+                                Smear = "Smear Concetration"
+                                ) 
+str(mdrtb_pdst1)
+mdrtb_pdst2 <- mdrtb_pdst1 |> mutate(
+  MDR = case_when(
+    INH_pDST == "Resistant" & RIF_pSDT == "Resistant" ~ "MDR",
+    TRUE ~ "Non-MDR"
+  )
+) |> select(-STR_pDST, -INH_pDST, -RIF_pSDT, 
+            -EMB_pDST, -PRZ_pDST, -rpoB,
+            -KatG, -inhA)
+table2 <- tbl_summary(mdrtb_pdst2, by=MDR, 
+            type = AGE ~ "continuous2",
+            statistic = list(
+  AGE ~ c("{mean} ({sd})",
+          "{min}, {max}")
+)) |> add_overall() |>
+  add_p(test.args = all_tests("fisher.test") ~ list(simulate.p.value=TRUE)) |>
+  add_q(method = "fdr") |>
+  add_ci()
+table2
+t2 <- table2 |> as_gt() |>
+  gt::gtsave(filename = "Table2.png")
+table3 <- mdrtb_pdst2 |> tbl_summary(by=MDR, include = c(AGE, age_group),
+                                     statistic = list(
+                                       AGE ~ c("{mean} ({sd})")
+                                     )) |>
+  add_p() |> add_q() |> add_ci()
+table3 
+t3 <- table3 |> as_gt() |> gt::gtsave(filename = "Table3.png")
+table4 <- mdrtb_pdst2 |> tbl_summary(by=MDR, include = c(MOH_TB_TYPE_PATIENT, X_GENDER)) |> add_difference() |>
+  add_p(test.args = all_tests("fisher.test") ~ list(simulate.p.value=TRUE))
+t4 <- table4 |> as_gt() |> 
+  gt::gtsave(filename = "Table4.png")
+
+MOD1 <-mdrtb_pdst2 |> mutate(MDR = case_when(
+  MDR == "MDR" ~ 1,
+  MDR == "Non-MDR" ~ 0
+))
+MOD2 <- glm(MDR ~ MOH_TB_TYPE_PATIENT + X_GENDER, data = MOD1, family = binomial)
+table5 <- tbl_regression(MOD2, exponentiate = TRUE)
+t5 <- table5 |> as_gt() |>
+  gt::gtsave(filename = "table5.png")
+
+
+mdrtb_pdst_gdf <- mdrtb_pdst |> mutate(
+  MDR = case_when(
+    DST_1ST_Isoniazid == "Resistant" & DST_1ST_Rifampicin == "Resistant" ~ "MDR",
+    TRUE ~ "Non-MDR"
+  )
+)
+geo_df <- mdrtb_pdst_gdf[mdrtb_pdst_gdf$MDR == "MDR", ] |> ageCats() |> 
+  mutate(MOH_TB_TYPE_PATIENT = fct_recode(MOH_TB_TYPE_PATIENT, 
+                                          "Initial Treatment Failure" = "FA_1STL_TR",
+                                          "Failure After Retreatment" = "FA_RE_TREA",
+                                          "MDR Contaminated" = "MDR_CONTA",
+                                          "MDR Follow-UP" = "MDR_F",
+                                          "New Patient" = "NEW",
+                                          "Retreatment after initial treatment interruption" = "RE_AF_DEFA",
+                                          "Positive" = "POSITIVE"),
+         MOH_HIV_STATUS = fct_recode(MOH_HIV_STATUS, "Not Done" = "NOT_DONE",
+                                     "Declined" = "DECLINED",
+                                     "Negative" ="NEGATIVE",
+                                     "Positive" = "POSITIVE")) |>
+  labelled::set_variable_labels(MOH_HIV_STATUS = "HIV STATUS", X_GENDER = "Sex",
+                                MOH_TB_TYPE_PATIENT = "TB TYPE",
+                                DST_1ST_Streptomycin = "STR pDST",
+                                DST_1ST_Isoniazid = "INH pDST",
+                                DST_1ST_Rifampicin = "RIF pDST",
+                                DST_1ST_Ethambutol = "EMB pDST",
+                                DST_1ST_Pyrazinamide = "PRZ pDST",
+                                age_group = "AGE GROUP",
+                                SMEAR_CONCENTRA = "Smear Concetration"
+  ) 
+mdr <- mdrtb_pdst2[mdrtb_pdst2$MDR=="MDR", ]
+mdr %>% ggplot(aes(x=age_group, fill = age_group)) +
+  geom_dots() +
+  plain_theme +
+  labs(x="Age groups")
+ggsave("mdr_age_plot.png", width = 6, height = 4, dpi = 300)
+geo_df |>
+  select(Province, District, Facility) |>
+  tbl_summary(
+    statistic = list(
+      all_continuous() ~ "{n/(N)} ({p}%)"
+    )
+  ) 
+
+province_plot <- ggplot(geo_df, aes(x = Province, fill = Province)) +
+  geom_bar(position = position_dodge(width = 3.5)) +
+  plain_theme +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(x="Geographical region") +
+  scale_fill_discrete(name = "Georgraphical region")
+province_plot 
+
+ggsave("provinceplot.png", province_plot, width = 10, height = 10, units = "in")
+mdr_tb_df$MDR_TYPE <- NA
+# Here i have defined Rpob + katg as MDRKR (MDR KatG and RpoB), as well as those that are rpob + katg + inha
+mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG == 'Resistant'] <- 'MDRKR'
+mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG != 'Resistant' & mdr_tb_df$inhA == 'Resistant'] <- 'MDRIR'
+mdr_tb_dfv1 <- mdr_tb_df %>% select(-RpoB, -KatG, -inhA)
+TB_DATA_df1 <- TB_DATA 
+
+TB_DATA_df1$Resistance = ''
+TB_DATA_df1
+
+for (i in 1:nrow(TB_DATA_df1)) {
+  rpob <- TB_DATA_df1[i, 'RpoB']
+  katg <- TB_DATA_df1[i, 'KatG']
+  inha <- TB_DATA_df1[i, 'inhA']
+  
+  # Defining MDR
+  if ((rpob == 'Resistant' & katg == 'Resistant') || (rpob == 'Resistant' & inha == 'Resistant')) {
+    TB_DATA_df1[i,'Resistance'] <- 'MDR'
+  }
+  #Defining mono resistance
+  else if (rpob == 'Resistant' || katg == 'Resistant' || inha == 'Resistant'){
+    TB_DATA_df1[i, 'Resistance'] <- 'MR'
+  }
+  else 
+  {TB_DATA_df1[i, 'Resistance'] <- 'NR'}
+  
+}
+
+  
+#--------------------------------------------VISUALIZATIONS-----------------------------------------------------------
+#-------------settings theme----------
+theme_set(theme_gray())
+theme_update(
+  plot.margin = margin(rep(20, 4)),
+  plot.title = element_text(hjust = 0.5)
+)
+hivbar <- ggplot(mdr_tb_dfv1, mapping = aes(x=HIV_STATUS)) + geom_bar(mapping = aes(fill = HIV_STATUS)) + ggtitle('HIV status and multidrug resistance in 2015-2016 samples from NTRL')
+
+tb_type_bar <- ggplot(mdr_tb_dfv1, mapping = aes(x=TB_TYPE)) + geom_bar(mapping = aes(fill = TB_TYPE)) + ggtitle('TB Type and multidrug resistance in 2015-2016 samples from NTRL')
+smearBar <- ggplot(mdr_tb_dfv1, mapping = aes(x=SMEAR)) + geom_bar(mapping = aes(fill = SMEAR)) + ggtitle('Smear results and multidrug resistance in 2015-2016 samples from NTRL')
+smearBar
+register_google(key = 'AIzaSyB-Ob5dy2_EnkMBq8VBbeGH03VpmA-ZItc')
+
+age_breakpoints <- c(5, 15, 25, 35, 45, 55, 65)
+mdr_tb_dfv2 <- cut(mdr_tb_dfv1$AGE, breaks = age_breakpoints, include.lowest = TRUE)
+mdr_tb_dfv2 
+mdr_tb_dfv1$age_groups <- mdr_tb_dfv2
+mdr_tb_dfv1 %>% select(-age_groups)
+mdr_tb_dfv1 <- mdr_tb_dfv1 %>% select(-age_groups)
+mdr_tb_dfv1
+mdr_tb_dfv3 <- ageCats(mdr_tb_dfv1) 
+pcts(mdr_tb_dfv1, 'TB_TYPE')
+geoGrpsPcts <- pcts(mdr_tb_dfv1, 'Province')
+GeoPops <- geoGrpsPcts %>%
+  arrange(desc(Percentages)) %>% 
+  mutate( Province = forcats::fct_reorder(Province, Percentages)) %>%
+  ggplot(aes(x=Province, y=Percentages)) +
+  geom_point(color = 'orange') +
+  geom_segment(aes(x=Province, y=Percentages, xend=Province, yend=0, color = 'red')) +
+  theme(axis.text.x = element_text(angle = 90), panel.background = element_rect(fill = 'lightblue'), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), plot.title = element_text(color='#6699CC', size = 10, face = 'bold')) +
+  labs(title = 'MDR TB: Percentage of MDR TB cases by region/county reported to the NTRL', y= 'Percentage (%) per county', x='County') +
+  guides(color = 'none')
+GeoPops 
+
+age_groupBars <- mdr_tb_dfv3 %>%
+  group_by(age_group) %>%
+  summarise(counts = n())
+
+ggplot() +
+  geom_bar(data = age_groupBars, aes(x = age_group, y = counts, fill = age_group), stat = "identity") +
+  labs(title = 'Age distribution of MDR isolates subitted to the NTRL between 2015-2015')
+
+#---------------INFERENTIAL STATISTICS------------------------------
+
+# Fishers exact test for HIV status
+Fishersfn(mdr_tb_dfv3, 'HIV_STATUS', 'MDR_TYPE')
+
+# Fisher's exact test for age
+Fishersfn(mdr_tb_dfv3, 'age_group', 'MDR_TYPE')
+
+# Fisher's exact test for COUNTY
+Fishersfn(mdr_tb_dfv1, 'Province', 'MDR_TYPE')
+
+# Fisher's exact test for TB type
+Fishersfn(mdr_tb_dfv1, 'TB_TYPE', 'MDR_TYPE')
+
+# Fisher's exact test for GENDER
+Fishersfn(mdr_tb_dfv1, 'GENDER', 'MDR_TYPE')
+
+# Fisher's exact test for SMEARS
+Fishersfn(mdr_tb_dfv1, 'SMEAR', 'MDR_TYPE')
+
+Fishersfn(mdr_tb_dfv1, 'HIV_STATUS', 'TB_TYPE')
+
+
+# More characterisations
+mdr_tb_dfv5 <- mdr_tb_df$MDR_TYPE[mdr_tb_df$RpoB == 'Resistant' & mdr_tb_df$KatG == 'Resistant' & mdr_tb_df$inhA == 'Resistant'] <- 'MDR+'
+mdr_tb_df
+# Percentages of the MDR types
+pcts(mdr_tb_df, 'MDR_TYPE')
+table(mdr_tb_df$Province, mdr_tb_df$MDR_TYPE)
+table(mdr_tb_df$HIV_STATUS, mdr_tb_df$MDR_TYPE)
+table(mdr_tb_df$SMEAR, mdr_tb_df$MDR_TYPE)
+table(mdr_tb_df$TB_TYPE, mdr_tb_df$MDR_TYPE)
+
+table(TB_DATA)

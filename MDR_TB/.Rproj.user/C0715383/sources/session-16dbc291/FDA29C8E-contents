@@ -1,0 +1,15 @@
+library('ggflowchart')
+flow_chart <- tibble::tibble(from = c("Total TB+ Entries recieved 
+  8308", "Total TB+ Entries recieved 
+  8308", "Entries after removing null values
+  2621", "Entries after removing null values
+  2621", "Null entries removed
+  2621"),
+                             to= c("Entries after removing null values
+  2621","Entries removed 
+  5682", "Entries after removing Non-MDR
+  143
+  ", "Null entries removed
+  2621", "MDR entries analyzed
+  143"))
+ggflowchart(flow_chart, colour = 'cyan', family = 'serif', x_)

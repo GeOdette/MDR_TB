@@ -1,0 +1,144 @@
+,,TEXT_ID,HIV_STATUS,GENDER,TB_TYPE,Province,District,SMEAR,RpoB,KatG,inhA,AGE
+0,52,X4969,NOT_DONE,F,SP_SM_NR,Tharaka Nithi,Meru South,1+,Resistant,Resistant,Sensitive,24.0
+1,56,X4973,NEGATIVE,M,RE_AF_DEFA,Kirinyaga,Kirinyaga West,2+,Resistant,Resistant,Sensitive,32.0
+2,63,X4980,POSITIVE,F,NEW,Nairobi,Embakasi,SCANTY,Resistant,Resistant,Sensitive,27.0
+3,68,X4985,NEGATIVE,M,SP_SM_PR,Embu,Mbeere North,1+,Resistant,Resistant,Sensitive,44.0
+4,87,X4956,NOT_DONE,M,SP_SM_NR,Machakos,Mwala,SCANTY,Resistant,Resistant,Sensitive,40.0
+5,88,X4957,POSITIVE,F,FA_1STL_TR,Nairobi,Kasarani,SCANTY,Resistant,Resistant,Sensitive,40.0
+6,97,X4966,NEGATIVE,M,FA_1STL_TR,Meru,Imenti South,2+,Resistant,Resistant,Sensitive,79.0
+7,102,X5009,NEGATIVE,M,NEW,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,19.0
+8,151,X4921,POSITIVE,F,SP_SM_PR,Meru,Imenti South,2+,Resistant,Resistant,Resistant,36.0
+9,155,X4925,POSITIVE,M,SP_SM_PR,Nakuru,Gilgil,1+,Resistant,Resistant,Sensitive,32.0
+10,156,X4926,NEGATIVE,M,RE_AF_DEFA,Kwale,Kinango,1+,Resistant,Resistant,Sensitive,18.0
+11,158,X4928,NOT_DONE,M,SP_SM_PR,Nairobi,Starehe,1+,Resistant,Resistant,Sensitive,45.0
+12,161,X5117,NEGATIVE,M,MDR_F,Baringo,Koibatek,1+,Resistant,Resistant,Sensitive,27.0
+13,190,X5013,NEGATIVE,F,MDR_F,Nairobi,Njiru,3+,Resistant,Resistant,Sensitive,35.0
+14,356,X5284,NEGATIVE,M,NEW,Kilifi,Kaloleni,SCANTY,Resistant,Resistant,Sensitive,33.0
+15,374,X5219,NEGATIVE,F,MDR_F,Baringo,Koibatek,1+,Resistant,Resistant,Resistant,20.0
+16,392,X5350,POSITIVE,M,SP_SM_PR,Nyeri,Mathira West,3+,Resistant,Resistant,Sensitive,39.0
+17,491,X5477,NOT_DONE,M,SP_SM_PR,South Sudan,South Sudan,SCANTY,Resistant,Resistant,Sensitive,34.0
+18,494,X5480,NOT_DONE,M,SP_SM_PR,South Sudan,South Sudan,3+,Resistant,Resistant,Resistant,42.0
+19,624,X5458,NEGATIVE,M,NEW,Kajiado,Isinya,SCANTY,Resistant,Resistant,Resistant,27.0
+20,650,X5434,NEGATIVE,M,FA_1STL_TR,Nairobi,Kasarani,1+,Resistant,Resistant,Sensitive,0.0
+21,689,X5583,NOT_DONE,M,FA_RE_TREA,Kilifi,Bahari,2+,Resistant,Resistant,Sensitive,48.0
+22,698,X5560,NOT_DONE,M,NEW,Nairobi,Dagoretti,2+,Resistant,Resistant,Sensitive,28.0
+23,712,X5641,NEGATIVE,M,NEW,Mombasa,Kisauni,1+,Resistant,Resistant,Sensitive,31.0
+24,722,X5651,NOT_DONE,M,SP_SM_PR,South Sudan,South Sudan,3+,Resistant,Resistant,Sensitive,26.0
+25,761,X5626,NOT_DONE,M,FA_1STL_TR,Turkana,Turkana Central,3+,Resistant,Resistant,Sensitive,0.0
+26,824,X5820,NEGATIVE,M,MDR_F,Kitui,Katulani,3+,Resistant,Resistant,Sensitive,52.0
+27,989,X5912,NOT_DONE,F,SP_SM_PR,Nairobi,Kamukunji,1+,Resistant,Resistant,Resistant,40.0
+28,1002,X5938,NOT_DONE,F,FA_1STL_TR,Nakuru,Nakuru,1+,Resistant,Resistant,Sensitive,14.0
+29,1124,SOTS168,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,26.0
+30,1139,X5683,NEGATIVE,M,FA_1STL_TR,Baringo,Koibatek,1+,Resistant,Resistant,Sensitive,27.0
+31,1173,X6084,POSITIVE,M,UNKNOWN,Nairobi,Kasarani,3+,Resistant,Resistant,Sensitive,50.0
+32,1249,X6169,NOT_DONE,M,RE_AF_DEFA,Kitui,Kyuso,3+,Resistant,Resistant,Sensitive,74.0
+33,1346,X6254,NEGATIVE,M,SP_SM_PR,West Pokot,Pokot Central,1+,Resistant,Resistant,Sensitive,27.0
+34,1452,X6357,POSITIVE,F,RE_AF_DEFA,Laikipia,Laikipia West,3+,Resistant,Resistant,Sensitive,25.0
+35,1471,X6380,NEGATIVE,M,SP_SM_PR,West Pokot,Pokot South,SCANTY,Resistant,Resistant,Sensitive,48.0
+36,1531,X6421,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,2+,Resistant,Resistant,Sensitive,42.0
+37,1578,X6505,NEGATIVE,F,NEW,Nakuru,Gilgil,1+,Resistant,Resistant,Sensitive,24.0
+38,1601,X6494,NOT_DONE,F,SP_SM_PR,Machakos,Kangundo,3+,Resistant,Resistant,Sensitive,36.0
+39,1616,X6525,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,1+,Resistant,Resistant,Sensitive,45.0
+40,1617,X6526,POSITIVE,F,MDR_F,Nairobi,Kamukunji,2+,Resistant,Resistant,Sensitive,27.0
+41,1679,X6553,NOT_DONE,M,FA_1STL_TR,Uasin Gishu,Eldoret East,1+,Resistant,Resistant,Sensitive,0.0
+42,1682,X6606,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,1+,Resistant,Resistant,Sensitive,25.0
+43,1705,X6608,NOT_DONE,F,FA_1STL_TR,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,35.0
+44,1745,X6677,NEGATIVE,M,NEW,Machakos,Mwala,3+,Resistant,Resistant,Sensitive,52.0
+45,1806,X6662,POSITIVE,F,FA_1STL_TR,Kitui,Mwingi East,1+,Resistant,Resistant,Sensitive,30.0
+46,1891,X6807,POSITIVE,M,MDR_F,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,50.0
+47,1987,X6890,POSITIVE,F,MDR_F,Nairobi,Kamukunji,1+,Resistant,Resistant,Sensitive,27.0
+48,2003,X6921,NEGATIVE,F,FA_1STL_TR,Kitui,Mwingi West,2+,Resistant,Resistant,Sensitive,26.0
+49,2020,X6938,POSITIVE,F,FA_RE_TREA,Laikipia,Laikipia West,3+,Resistant,Resistant,Sensitive,25.0
+50,2094,X6975,NEGATIVE,M,SP_SM_PR,South Sudan,South Sudan,SCANTY,Resistant,Resistant,Sensitive,49.0
+51,2148,X7034,POSITIVE,F,NEW,Turkana,Turkana Central,1+,Resistant,Resistant,Sensitive,25.0
+52,2237,X7141,NEGATIVE,F,FA_1STL_TR,Kitui,Kitui West,2+,Resistant,Resistant,Sensitive,28.0
+53,2378,X7314,POSITIVE,F,SP_SM_PR,Laikipia,Laikipia West,2+,Resistant,Resistant,Sensitive,25.0
+54,2387,X7351,NEGATIVE,M,FA_1STL_TR,Machakos,Mwala,3+,Resistant,Resistant,Sensitive,54.0
+55,2412,X7415,NOT_DONE,M,FA_1STL_TR,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,31.0
+56,2558,X7328,NOT_DONE,F,MDR_F,Baringo,Koibatek,1+,Resistant,Resistant,Sensitive,19.0
+57,2658,X7461,NOT_DONE,F,FA_1STL_TR,Machakos,Matungulu,1+,Resistant,Resistant,Sensitive,36.0
+58,2663,X7466,NOT_DONE,F,FA_1STL_TR,Kitui,Mwingi East,3+,Resistant,Resistant,Sensitive,30.0
+59,2695,Y168,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,2+,Resistant,Resistant,Sensitive,45.0
+60,2696,Y169,POSITIVE,M,MDR_F,Nairobi,Kamukunji,1+,Resistant,Resistant,Sensitive,50.0
+61,2702,Y175,NEGATIVE,F,MDR_F,Nairobi,Kamukunji,SCANTY,Resistant,Resistant,Sensitive,35.0
+62,2717,Y233,NEGATIVE,F,MDR_F,Baringo,Koibatek,SCANTY,Resistant,Resistant,Sensitive,21.0
+63,2792,Y087,NEGATIVE,M,FA_1STL_TR,Machakos,Mwala,3+,Resistant,Resistant,Sensitive,52.0
+64,2805,Y305,NOT_DONE,M,RE_AF_DEFA,Narok,Narok North,1+,Resistant,Resistant,Sensitive,29.0
+65,2806,Y306,NEGATIVE,M,NEW,Kajiado,Loitoktok,SCANTY,Resistant,Resistant,Sensitive,29.0
+66,2882,Y151,NEGATIVE,M,FA_1STL_TR,Embu,Embu West,1+,Resistant,Resistant,Sensitive,32.0
+67,2927,Y292,POSITIVE,F,NEW,Mombasa,Likoni,1+,Resistant,Resistant,Sensitive,33.0
+68,2955,Y317,NEGATIVE,M,SP_SM_PR,Isiolo,Isiolo,2+,Resistant,Resistant,Sensitive,35.0
+69,2956,Y318,NEGATIVE,M,FA_1STL_TR,Kajiado,Kajiado Central,3+,Resistant,Resistant,Sensitive,35.0
+70,3141,Y602,NEGATIVE,M,NEW,Kilifi,Malindi,3+,Resistant,Resistant,Sensitive,28.0
+71,3282,Y717,NOT_DONE,F,FA_1STL_TR,Mombasa,Kisauni,3+,Resistant,Resistant,Sensitive,27.0
+72,3458,Y554,NOT_DONE,F,FA_1STL_TR,Garissa,Garissa,NEG,Resistant,Resistant,Resistant,80.0
+73,3551,Y992,NEGATIVE,M,MDR_F,Kitui,Katulani,3+,Resistant,Resistant,Sensitive,52.0
+74,3562,Y1087,NEGATIVE,M,FA_1STL_TR,Kajiado,Kajiado North,1+,Resistant,Resistant,Sensitive,42.0
+75,3597,Y1032,POSITIVE,F,MDR_F,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,31.0
+76,3636,Y1099,NEGATIVE,M,SP_SM_PR,Kiambu,Thika East,3+,Resistant,Resistant,Sensitive,43.0
+77,3699,Y1184,POSITIVE,F,FA_RE_TREA,Nakuru,Kuresoi,3+,Resistant,Resistant,Sensitive,37.0
+78,3899,Y1371,NEGATIVE,M,SP_SM_PR,Nyandarua,Nyandarua West,3+,Resistant,Resistant,Sensitive,42.0
+79,3985,Y1430,NEGATIVE,F,FA_1STL_TR,Mombasa,Changamwe,2+,Resistant,Resistant,Sensitive,26.0
+80,4017,Y1491,NOT_DONE,M,NEW,South Sudan,South Sudan,2+,Resistant,Resistant,Sensitive,0.0
+81,4118,Y1534,NOT_DONE,M,MDR_F,Nakuru,Naivasha,3+,Resistant,Resistant,Sensitive,29.0
+82,4144,Y1571,NEGATIVE,F,FA_1STL_TR,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,32.0
+83,4409,Y1926,NEGATIVE,M,NEW,Kiambu,Thika East,SCANTY,Resistant,Resistant,Sensitive,0.0
+84,4443,Y1930,NEGATIVE,M,NEW,Kirinyaga,Kirinyaga Central,1+,Resistant,Resistant,Sensitive,34.0
+85,4489,Y1942,NOT_DONE,M,FA_1STL_TR,Laikipia,Nyahururu,SCANTY,Resistant,Resistant,Sensitive,22.0
+86,4502,Y1970,NEGATIVE,M,RE_AF_DEFA,Embu,Embu East,NEG,Resistant,Resistant,Sensitive,30.0
+87,4509,Y1850,NOT_DONE,M,NEW,South Sudan,South Sudan,3+,Resistant,Resistant,Sensitive,44.0
+88,4513,Y1854,NEGATIVE,M,FA_1STL_TR,South Sudan,South Sudan,2+,Resistant,Resistant,Sensitive,28.0
+89,4522,Y1863,NOT_DONE,M,NEW,Nakuru,Nakuru,2+,Resistant,Resistant,Sensitive,29.0
+90,4535,Y2010,NEGATIVE,F,SP_SM_PR,Kirinyaga,Kirinyaga Central,SCANTY,Resistant,Resistant,Sensitive,30.0
+91,4614,Y2057,NOT_DONE,F,SP_SM_PR,Kitui,Tseikuru,3+,Resistant,Resistant,Sensitive,65.0
+92,4633,Y2104,NEGATIVE,F,SP_SM_PR,Bungoma,Bungoma Central,1+,Resistant,Resistant,Sensitive,63.0
+93,4638,Y2109,NOT_DONE,F,SP_SM_PR,Nakuru,Naivasha,SCANTY,Resistant,Resistant,Sensitive,25.0
+94,4650,Y1981,NEGATIVE,M,MDR_F,Nairobi,Kamukunji,SCANTY,Resistant,Resistant,Sensitive,45.0
+95,4655,Y1986,NEGATIVE,M,RE_AF_DEFA,Mombasa,Kisauni,1+,Resistant,Resistant,Sensitive,25.0
+96,4657,Y1988,NEGATIVE,M,RE_AF_DEFA,Samburu,Samburu East,3+,Resistant,Resistant,Sensitive,50.0
+97,4660,Y1991,NEGATIVE,M,MDR_F,Kirinyaga,Kirinyaga Central,SCANTY,Resistant,Resistant,Sensitive,32.0
+98,4663,Y1994,NEGATIVE,M,FA_1STL_TR,Kiambu,Kiambu,1+,Resistant,Resistant,Sensitive,30.0
+99,4664,Y1995,NEGATIVE,F,FA_1STL_TR,Nyandarua,Mirangine,SCANTY,Resistant,Resistant,Sensitive,25.0
+100,4665,Y1996,POSITIVE,F,NEW,Nakuru,Kuresoi,1+,Resistant,Resistant,Sensitive,32.0
+101,4780,Y2226,NOT_DONE,F,NEW,Mombasa,Changamwe,SCANTY,Resistant,Resistant,Sensitive,36.0
+102,4918,Y2422,NOT_DONE,F,RE_AF_DEFA,Nairobi,Langata,3+,Resistant,Resistant,Sensitive,40.0
+103,5145,Y2649,NEGATIVE,M,NEW,Mombasa,Changamwe,3+,Resistant,Resistant,Sensitive,47.0
+104,5193,Y2631,NOT_DONE,M,NEW,Nakuru,Naivasha,1+,Resistant,Resistant,Sensitive,29.0
+105,5281,Y2671,NEGATIVE,M,SP_SM_PR,Samburu,Samburu East,1+,Resistant,Resistant,Sensitive,61.0
+106,5606,Y3116,NEGATIVE,M,RE_AF_DEFA,Taita Taveta,Voi,2+,Resistant,Resistant,Sensitive,29.0
+107,5795,Y3107,NOT_DONE,M,MDR_CONTA,Nakuru,Naivasha,1+,Resistant,Resistant,Sensitive,29.0
+108,5833,Y3320,POSITIVE,M,SP_SM_PR,Nairobi,Embakasi,2+,Resistant,Resistant,Resistant,43.0
+109,5963,Y3341,NEGATIVE,F,RE_AF_DEFA,Nairobi,Kamukunji,3+,Resistant,Resistant,Sensitive,30.0
+110,6005,Y3278,NOT_DONE,M,NEW,Makueni,Mukaa,1+,Resistant,Resistant,Sensitive,33.0
+111,6074,Y3380,NOT_DONE,M,NEW,Kiambu,Kiambu,2+,Resistant,Resistant,Sensitive,37.0
+112,6092,Y3398,NOT_DONE,F,NEW,Nairobi,Langata,2+,Resistant,Resistant,Sensitive,40.0
+113,6102,Y3555,NEGATIVE,M,SP_SM_PR,Nairobi,Njiru,2+,Resistant,Resistant,Sensitive,33.0
+114,6219,Y3526,NEGATIVE,F,MDR_F,Kwale,Msambweni,3+,Resistant,Resistant,Sensitive,20.0
+115,6366,Y3865,NEGATIVE,F,FA_1STL_TR,Nyeri,Nyeri Central,3+,Resistant,Resistant,Sensitive,20.0
+116,6483,Y3908,POSITIVE,F,FA_1STL_TR,Nairobi,Langata,1+,Resistant,Resistant,Sensitive,40.0
+117,6639,Y4060,NEGATIVE,M,NEW,Kitui,Mwingi Central,3+,Resistant,Resistant,Sensitive,29.0
+118,6646,Y4067,NOT_DONE,M,SP_SM_PR,West Pokot,Pokot Central,3+,Resistant,Resistant,Sensitive,45.0
+119,7127,Y4667,POSITIVE,M,SP_SM_PR,Kirinyaga,Kirinyaga Central,3+,Resistant,Resistant,Sensitive,55.0
+120,7214,Y4663,POSITIVE,M,RE_AF_DEFA,Nairobi,Embakasi,SCANTY,Resistant,Resistant,Sensitive,22.0
+121,7379,Y4969,NEGATIVE,M,MDR_CONTA,Machakos,Yatta,1+,Resistant,Resistant,Sensitive,39.0
+122,7657,Y5172,NOT_DONE,M,FA_1STL_TR,Turkana,Turkana West,1+,Resistant,Resistant,Sensitive,26.0
+123,7673,Y5222,NEGATIVE,M,SP_SM_NR,Mombasa,Changamwe,3+,Resistant,Resistant,Sensitive,18.0
+124,7951,Y5486,NEGATIVE,F,NEW,Nairobi,Makadara,1+,Resistant,Resistant,Sensitive,26.0
+125,7964,Y5254,NOT_DONE,M,FA_1STL_TR,Mombasa,Changamwe,3+,Resistant,Resistant,Sensitive,52.0
+126,8086,Y5580,NEGATIVE,F,MDR_CONTA,Meru,Tigania East,2+,Resistant,Resistant,Sensitive,16.0
+127,8095,Y5617,NEGATIVE,M,MDR_F,Kitui,Mwingi Central,1+,Resistant,Resistant,Sensitive,29.0
+128,8149,Y5702,NOT_DONE,M,RE_AF_DEFA,Makueni,Mukaa,1+,Resistant,Resistant,Sensitive,33.0
+129,8172,Y5439,POSITIVE,M,NEW,Mombasa,Changamwe,2+,Resistant,Resistant,Sensitive,69.0
+130,8273,Y5325,NEGATIVE,M,SP_SM_PR,Nairobi,Starehe,3+,Resistant,Resistant,Sensitive,25.0
+131,8293,Y5746,NEGATIVE,F,FA_1STL_TR,Kitui,Mwingi Central,3+,Resistant,Resistant,Sensitive,39.0
+132,2640,Y114,NEGATIVE,F,FA_1STL_TR,Tana River,Galole,1+,Resistant,Sensitive,Resistant,45.0
+133,2886,Y155,POSITIVE,F,SP_SM_PR,Samburu,Samburu Central,2+,Resistant,Sensitive,Resistant,23.0
+134,2998,Y451,NOT_DONE,F,NEW,Meru,Igembe South,3+,Resistant,Sensitive,Resistant,12.0
+135,3839,Y1295,NOT_DONE,M,FA_1STL_TR,South Sudan,South Sudan,1+,Resistant,Sensitive,Resistant,41.0
+136,4446,Y1933,POSITIVE,M,MDR_F,Bomet,Bomet,1+,Resistant,Sensitive,Resistant,18.0
+137,4915,Y2391,NEGATIVE,F,NEW,Kirinyaga,Kirinyaga South,2+,Resistant,Sensitive,Resistant,40.0
+138,6127,Y3591,NOT_DONE,F,SP_SM_PR,South Sudan,South Sudan,1+,Resistant,Sensitive,Resistant,31.0
+139,6320,Y3743,NOT_DONE,M,RE_AF_DEFA,West Pokot,Pokot Central,3+,Resistant,Sensitive,Resistant,25.0
+140,6361,Y3843,POSITIVE,F,NEW,Kitui,Mwingi Central,1+,Resistant,Sensitive,Resistant,56.0
+141,7233,Y4540,NEGATIVE,M,FA_1STL_TR,Uasin Gishu,Eldoret East,SCANTY,Resistant,Sensitive,Resistant,39.0
+142,8288,Y5571,NOT_DONE,M,NEW,Nairobi,Kasarani,SCANTY,Resistant,Sensitive,Resistant,30.0
